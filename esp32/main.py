@@ -15,6 +15,7 @@ def start_mq135():
     """MQ135 lib example"""
     time.sleep(5)
     led = machine.Pin(2, machine.Pin.OUT)
+    led.value(0)
     failcount = 0
     while True:
     #time
@@ -23,7 +24,9 @@ def start_mq135():
             break 
         except:
             print("ntp fail : 1")
-            if (failcount==5):
+            if (failcount==3):
+                print("restarting...")
+                deepsleep(10)
                 break
             failcount = failcount+1
             led.value(1)
